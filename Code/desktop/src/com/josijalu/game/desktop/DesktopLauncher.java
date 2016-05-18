@@ -11,6 +11,7 @@ public class DesktopLauncher {
 		config.title = "TurfWars";
 		config.width = 800;
 		config.height = 800;
+		config.resizable = false;
 		new LwjglApplication(new JoSiJaLu(), config);
 	}
 }
