@@ -42,9 +42,9 @@ public class JoSiJaLu extends ApplicationAdapter {
         if(Gdx.input.isKeyPressed(Input.Keys.S)) player_graphic_hitbox.y -= 400 * Gdx.graphics.getDeltaTime();
         if(Gdx.input.isKeyPressed(Input.Keys.W)) player_graphic_hitbox.y += 400 * Gdx.graphics.getDeltaTime();
         if(player_graphic_hitbox.x < 0) player_graphic_hitbox.x = 0;
-        if(player_graphic_hitbox.x > 800 - 64) player_graphic_hitbox.x = 800 - player_graphic_hitbox.width;
-        if(player_graphic_hitbox.x < 0) player_graphic_hitbox.x = 0;
-        if(player_graphic_hitbox.x > 800 - 64) player_graphic_hitbox.x = 800 - player_graphic_hitbox.width;
+        if(player_graphic_hitbox.x > 800 - player_graphic_hitbox.width) player_graphic_hitbox.x = 800 - player_graphic_hitbox.width;
+        if(player_graphic_hitbox.y < 0) player_graphic_hitbox.y = 0;
+        if(player_graphic_hitbox.y > 800 - player_graphic_hitbox.height) player_graphic_hitbox.y = 800 - player_graphic_hitbox.height;
         //camera stuff combined with drawing stuff
         batch.setProjectionMatrix(camera.combined);
         //drawing the objects
