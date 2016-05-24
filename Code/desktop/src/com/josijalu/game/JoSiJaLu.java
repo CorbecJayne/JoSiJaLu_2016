@@ -1,55 +1,125 @@
 package com.josijalu.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
-public class JoSiJaLu extends ApplicationAdapter {
-    private Texture player_graphic;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public class JoSiJaLu implements Screen {
+    final MainMenu game;
     private OrthographicCamera camera;
-    private SpriteBatch batch;
-    private Rectangle player_graphic_hitbox;
+    public SpriteBatch batch;
+    private Player player;
+    private ArrayList<Player> players;
+    private ArrayList<Projectile> bullets;
+    private Texture projectile_graphic;
+
     //creating objects
-    @Override
-    public void create() {
+    public JoSiJaLu(final MainMenu game) {
+        this.game = game;
+        ArrayList<Player> players = new ArrayList<Player>();
+        ArrayList<Projectile> bullets = new ArrayList<Projectile>();
+        this.players = players;
+        this.bullets = bullets;
         //create a camera view
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 800);
+        camera.setToOrtho(false, game.width, game.height);
         //this is important for the grafical stuff
-        batch = new SpriteBatch();
-        //creating the player graphic
-        player_graphic_hitbox = new Rectangle();
-        player_graphic_hitbox.set(10, 10, 64, 64);
-        player_graphic = new Texture(Gdx.files.internal("graphics/player_graphic.png"));
+        game.batch = new SpriteBatch();
+        //creating the player incl. graphic
+        player = new Player("bird", new Vector2(1856, 0));
+        projectile_graphic = new Texture(Gdx.files.internal("graphics/projectile.png"));
+    }
+
+    @Override
+    public void show() {
+
     }
 
     //frames
     @Override
-    public void render() {
+    public void render(float delta) {
+        //return to the menu if "Esc" is pressed
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            game.setScreen(new MainMenuScreen(game));
+        }
         //clearing the screen
         Gdx.gl.glClearColor(0, 0, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        //cpdate the camera view (camera is fullscreen so until now there is nothing to update)
+        //update the camera view (camera is fullscreen so until now there is nothing to update)
         camera.update();
-        //makes the player move
-        if(Gdx.input.isKeyPressed(Input.Keys.A)) player_graphic_hitbox.x -= 400 * Gdx.graphics.getDeltaTime();
-        if(Gdx.input.isKeyPressed(Input.Keys.D)) player_graphic_hitbox.x += 400 * Gdx.graphics.getDeltaTime();
-        if(Gdx.input.isKeyPressed(Input.Keys.S)) player_graphic_hitbox.y -= 400 * Gdx.graphics.getDeltaTime();
-        if(Gdx.input.isKeyPressed(Input.Keys.W)) player_graphic_hitbox.y += 400 * Gdx.graphics.getDeltaTime();
-        if(player_graphic_hitbox.x < 0) player_graphic_hitbox.x = 0;
-        if(player_graphic_hitbox.x > 800 - player_graphic_hitbox.width) player_graphic_hitbox.x = 800 - player_graphic_hitbox.width;
-        if(player_graphic_hitbox.y < 0) player_graphic_hitbox.y = 0;
-        if(player_graphic_hitbox.y > 800 - player_graphic_hitbox.height) player_graphic_hitbox.y = 800 - player_graphic_hitbox.height;
+        //makes the player move with ste speed that is saved in his class
+        int speed = player.getSpeed();
+        float x = player.getPosition().x;
+        float y = player.getPosition().y;
+        if (Gdx.input.isKeyPressed(Input.Keys.A)) x -= speed * 100 * Gdx.graphics.getDeltaTime();
+        if (Gdx.input.isKeyPressed(Input.Keys.D)) x += speed * 100 * Gdx.graphics.getDeltaTime();
+        if (Gdx.input.isKeyPressed(Input.Keys.S)) y -= speed * 100 * Gdx.graphics.getDeltaTime();
+        if (Gdx.input.isKeyPressed(Input.Keys.W)) y += speed * 100 * Gdx.graphics.getDeltaTime();
+        if (x < 0) x = 0;
+        if (x > game.width - player.getSize()) x = game.width - player.getSize();
+        if (y < 0) y = 0;
+        if (y > game.height - player.getSize()) y = game.height - player.getSize();
+        player.setPosition(x, y);
+        //update the mouse position in the Playerclass
+        player.update_mouse_position();
+        //handle the shooting
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)&& bullets.isEmpty()) {
+            bullets.add(new Projectile(player.getPosition(), player.getDirectionVector(), player));
+        }
         //camera stuff combined with drawing stuff
-        batch.setProjectionMatrix(camera.combined);
+        game.batch.setProjectionMatrix(camera.combined);
         //drawing the objects
-        batch.begin();
-        batch.draw(player_graphic, player_graphic_hitbox.x, player_graphic_hitbox.y);
-        batch.end();
+        game.batch.begin();
+        game.batch.draw(player.getGraphic(), player.getPosition().x, player.getPosition().y, player.getSize(), player.getSize());
+        game.batch.draw(player.getGraphicAim(), player.getMouse_position().x, player.getMouse_position().y, 64, 64);
+        //showing the Bullets and removing them if they traveled to far
+        Iterator<Projectile> bulletsI = bullets.iterator();
+        while (bulletsI.hasNext()) {
+            Projectile bullet = bulletsI.next();
+            if (bullet.getLoops() > 50) {
+                bulletsI.remove();
+            } else {
+                bullet.next();
+                game.batch.draw(projectile_graphic, bullet.getPosition().x, bullet.getPosition().y, 64, 64);
+            }
+        }
+        game.batch.end();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    //cleanup if closing the game screen
+    @Override
+    public void dispose() {
+        player.getGraphic().dispose();
+        player.getGraphicAim().dispose();
+        batch.dispose();
+        projectile_graphic.dispose();
     }
 }
