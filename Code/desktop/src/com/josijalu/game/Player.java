@@ -52,9 +52,9 @@ public class Player {
     }
 
     public Vector2 getDirectionVector() {
-        Vector2 v = getPosition();
-        v.add(getMouse_position());
-        v.setLength2(1F);
+        Vector2 v = getMouse_position();
+        v = v.sub(getPosition());
+        v = v.setLength(10F);
         return v;
     }
 
@@ -105,11 +105,11 @@ public class Player {
     }
 
     public Vector2 getPosition() {
-        return position;
+        return new Vector2(position);
     }
 
     public Vector2 getMouse_position() {
-        return mouse_position;
+        return new Vector2(mouse_position);
     }
 
     public void setPosition(float position_x, float position_y) {

@@ -15,19 +15,15 @@ import java.util.Iterator;
 public class JoSiJaLu implements Screen {
     final MainMenu game;
     private OrthographicCamera camera;
+    private Texture projectile_graphic;
     public SpriteBatch batch;
     private Player player;
-    private ArrayList<Player> players;
-    private ArrayList<Projectile> bullets;
-    private Texture projectile_graphic;
+    private ArrayList<Player> players = new ArrayList<Player>();
+    private ArrayList<Projectile> bullets = new ArrayList<Projectile>();
 
     //creating objects
     public JoSiJaLu(final MainMenu game) {
         this.game = game;
-        ArrayList<Player> players = new ArrayList<Player>();
-        ArrayList<Projectile> bullets = new ArrayList<Projectile>();
-        this.players = players;
-        this.bullets = bullets;
         //create a camera view
         camera = new OrthographicCamera();
         camera.setToOrtho(false, game.width, game.height);
@@ -71,7 +67,7 @@ public class JoSiJaLu implements Screen {
         //update the mouse position in the Playerclass
         player.update_mouse_position();
         //handle the shooting
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)&& bullets.isEmpty()) {
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && bullets.isEmpty()) {
             bullets.add(new Projectile(player.getPosition(), player.getDirectionVector(), player));
         }
         //camera stuff combined with drawing stuff

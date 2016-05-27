@@ -4,35 +4,31 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Projectile {
 
-    private Vector2 pos;
+    private Vector2 position;
     private Vector2 velocity;
     private Player shooter;
     private int loops = 0;
 
-    public Projectile(Vector2 pos, Vector2 velocity, Player shooter) {
-        this.pos = pos;
-        this.velocity = velocity;
-        this.shooter = shooter;
+    public Projectile(Vector2 pos, Vector2 vel, Player newShooter) {
+        position = new Vector2(pos);
+        velocity = vel;
+        shooter = newShooter;
 
     }
 
     //calculates the next pos of the moved on Bullet
     public void next() {
-        pos = pos.add(getVelocity());
+        position = getPosition().add(getVelocity());
         loops++;
     }
 
     //getter und setter
 
     private Vector2 getVelocity() {
-        return velocity;
+        return new Vector2(velocity);
     }
     public Vector2 getPosition() {
-        return pos;
-    }
-
-    private void setPosition(Vector2 pos) {
-        this.pos = pos;
+        return new Vector2(position);
     }
 
     public Player getShooter() {
@@ -41,10 +37,6 @@ public class Projectile {
 
     public int getLoops() {
         return loops;
-    }
-
-    private void setShooter(Player shooter) {
-        this.shooter = shooter;
     }
 
 }
