@@ -67,7 +67,7 @@ public class JoSiJaLu implements Screen {
         //update the mouse position in the Playerclass
         player.update_mouse_position();
         //handle the shooting
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && bullets.isEmpty()) {
+        if (Gdx.input.isButtonPressed(Input.Keys.LEFT) && bullets.isEmpty()) {
             bullets.add(new Projectile(player.getPosition(), player.getDirectionVector(), player));
         }
         //camera stuff combined with drawing stuff
