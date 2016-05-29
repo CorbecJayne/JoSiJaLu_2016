@@ -9,9 +9,7 @@ buildscript {
         classpath 'org.robovm:robovm-gradle-plugin:1.12.0'
     }
 }
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.0'
-}
+
 allprojects {
     apply plugin: "eclipse"
     apply plugin: "idea"
