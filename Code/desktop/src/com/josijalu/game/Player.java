@@ -44,7 +44,7 @@ public class Player {
 
     //updating the mouse position that the player is facing
     public void update_mouse_position() {
-        mouse_position.set(Gdx.input.getX() - 32, -Gdx.input.getY() + 1080 - 32);
+        mouse_position.set(Gdx.input.getX() - 32, -Gdx.input.getY() + 1040 - 32);
     }
 
     public float getDirectonAngle() {
@@ -54,6 +54,7 @@ public class Player {
     public Vector2 getDirectionVector() {
         Vector2 v = getMouse_position();
         v = v.sub(getPosition());
+        v = v.sub(32,32);
         v = v.setLength(10F);
         return v;
     }

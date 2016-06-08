@@ -7,8 +7,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class MainMenu extends Game {
     public SpriteBatch batch;
     public BitmapFont font;
-    public int width = 1920;
-    public int height = 1080;
+    public int width = 1680;
+    public int height = 1040;
 
     public void create() {
         batch = new SpriteBatch();

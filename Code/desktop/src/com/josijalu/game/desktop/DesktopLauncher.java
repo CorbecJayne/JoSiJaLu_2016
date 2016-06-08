@@ -9,8 +9,8 @@ public class DesktopLauncher {
         //creating a window
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.title = "TurfWars";
-        config.width = 1920;
-        config.height = 1080;
+        config.width = 1680;
+        config.height = 1040;
         config.resizable = false;
         config.fullscreen = true;
         config.vSyncEnabled = true;

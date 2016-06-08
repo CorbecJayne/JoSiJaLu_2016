@@ -11,6 +11,7 @@ public class Projectile {
 
     public Projectile(Vector2 pos, Vector2 vel, Player newShooter) {
         position = new Vector2(pos);
+        position.add(32,32);
         velocity = vel;
         shooter = newShooter;
 
