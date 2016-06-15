@@ -51,7 +51,7 @@ public class JoSiJaLu implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         //update the camera view (camera is fullscreen so until now there is nothing to update)
         camera.update();
-        //makes the player move with ste speed that is saved in his class
+        //makes the player move with the speed that is saved in his class
         int speed = player.getSpeed();
         float x = player.getPosition().x;
         float y = player.getPosition().y;
