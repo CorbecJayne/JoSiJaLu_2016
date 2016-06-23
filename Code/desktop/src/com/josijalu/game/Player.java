@@ -1,7 +1,6 @@
 package com.josijalu.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -10,6 +9,7 @@ public class Player {
     final MainMenu game;
     private String team;
     private int speed;
+    private float speed_bullet;
     private boolean bullet_fired;
     private Vector2 position;
     private Vector2 mouse_position;
@@ -24,6 +24,7 @@ public class Player {
         else this.team = "bird";
         //movmentspeed of the Player
         speed = 3;
+        speed_bullet = 10;
         //if the player has recently fired a bullet he can't fire another one
         bullet_fired = false;
         //position of the player
@@ -58,7 +59,7 @@ public class Player {
         Vector2 v = getMouse_position();
         v = v.sub(getPosition());
         v = v.sub(32, 32);
-        v = v.setLength(10F);
+        v = v.setLength(speed_bullet);
         return v;
     }
 
@@ -143,17 +144,17 @@ public class Player {
         }
         //When holding down two Buttons at the same time, the Player will move in one diagonal direction
         else if (a && s) {
-            x1 -= (speed1 * Gdx.graphics.getDeltaTime()) / 2;
-            y1 -= (speed1 * Gdx.graphics.getDeltaTime()) / 2;
+            x1 -= (speed1 * Gdx.graphics.getDeltaTime()) * 0.7;
+            y1 -= (speed1 * Gdx.graphics.getDeltaTime()) * 0.7;
         } else if (d && w) {
-            x1 += (speed1 * Gdx.graphics.getDeltaTime()) / 2;
-            y1 += (speed1 * Gdx.graphics.getDeltaTime()) / 2;
+            x1 += (speed1 * Gdx.graphics.getDeltaTime()) * 0.7;
+            y1 += (speed1 * Gdx.graphics.getDeltaTime()) * 0.7;
         } else if (s && d) {
-            y1 -= (speed1 * Gdx.graphics.getDeltaTime()) / 2;
-            x1 += (speed1 * Gdx.graphics.getDeltaTime()) / 2;
+            y1 -= (speed1 * Gdx.graphics.getDeltaTime()) * 0.7;
+            x1 += (speed1 * Gdx.graphics.getDeltaTime()) * 0.7;
         } else if (w && a) {
-            x1 -= (speed1 * Gdx.graphics.getDeltaTime()) / 2;
-            y1 += (speed1 * Gdx.graphics.getDeltaTime()) / 2;
+            x1 -= (speed1 * Gdx.graphics.getDeltaTime()) * 0.7;
+            y1 += (speed1 * Gdx.graphics.getDeltaTime()) * 0.7;
         }
 
         //Prove if players colliding with window border
