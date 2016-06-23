@@ -125,7 +125,8 @@ public class Player {
         float x1 = getPosition().x;
         float y1 = getPosition().y;
         //When holding down two Buttons at the same time, the Player will stop moving
-        if (w && s) {
+        if(!w&&!a&&!s&&!d){}
+        else if (w && s) {
 
         } else if (a && d) {
 
