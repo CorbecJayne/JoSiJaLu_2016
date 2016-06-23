@@ -1,11 +1,13 @@
 package com.josijalu.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Player {
+    final MainMenu game;
     private String team;
     private int speed;
     private boolean bullet_fired;
@@ -16,7 +18,7 @@ public class Player {
     private Texture player_graphic;
     private Texture player_graphic_aim;
 
-    public Player(String team, Vector2 position) {
+    public Player(String team, Vector2 position, MainMenu game) {
         //setting the player-team
         if (team == "bird" || team == "pig") this.team = team;
         else this.team = "bird";
@@ -40,6 +42,7 @@ public class Player {
             player_graphic = new Texture(Gdx.files.internal("graphics/bird_normal.png"));
         else if (team == "pig")
             player_graphic = new Texture(Gdx.files.internal("graphics/pig_normal.png"));
+        this.game = game;
     }
 
     //updating the mouse position that the player is facing
@@ -54,7 +57,7 @@ public class Player {
     public Vector2 getDirectionVector() {
         Vector2 v = getMouse_position();
         v = v.sub(getPosition());
-        v = v.sub(32,32);
+        v = v.sub(32, 32);
         v = v.setLength(10F);
         return v;
     }
@@ -115,6 +118,53 @@ public class Player {
 
     public void setPosition(float position_x, float position_y) {
         position = new Vector2(position_x, position_y);
+    }
+
+    public void move(boolean w, boolean a, boolean s, boolean d) {
+        int speed1 = getSpeed() * 100;
+        float x1 = getPosition().x;
+        float y1 = getPosition().y;
+        //When holding down two Buttons at the same time, the Player will stop moving
+        if (w && s) {
+
+        } else if (a && d) {
+
+        }
+        //When holding down a Button, the Player will move in one vertical or horizontal direction
+        else if (a && !w && !s && !d) {
+            x1 -= speed1 * Gdx.graphics.getDeltaTime();
+        } else if (d && !w && !s && !a) {
+            x1 += speed1 * Gdx.graphics.getDeltaTime();
+        } else if (s && !w && !a && !d) {
+            y1 -= speed1 * Gdx.graphics.getDeltaTime();
+        } else if (w && !a && !s && !d) {
+            y1 += speed1 * Gdx.graphics.getDeltaTime();
+        }
+        //When holding down two Buttons at the same time, the Player will move in one diagonal direction
+        else if (a && s) {
+            x1 -= (speed1 * Gdx.graphics.getDeltaTime()) / 2;
+            y1 -= (speed1 * Gdx.graphics.getDeltaTime()) / 2;
+        } else if (d && w) {
+            x1 += (speed1 * Gdx.graphics.getDeltaTime()) / 2;
+            y1 += (speed1 * Gdx.graphics.getDeltaTime()) / 2;
+        } else if (s && d) {
+            y1 -= (speed1 * Gdx.graphics.getDeltaTime()) / 2;
+            x1 += (speed1 * Gdx.graphics.getDeltaTime()) / 2;
+        } else if (w && a) {
+            x1 -= (speed1 * Gdx.graphics.getDeltaTime()) / 2;
+            y1 += (speed1 * Gdx.graphics.getDeltaTime()) / 2;
+        }
+
+        //Prove if players colliding with window border
+        if (x1 < 0) x1 = 0;
+        if (x1 > game.width - getSize()) x1 = game.width - getSize();
+        if (y1 < 0) y1 = 0;
+        if (y1 > game.height - getSize()) y1 = game.height - getSize();
+
+        setPosition(x1, y1);
+
+        //update the mouse position
+        update_mouse_position();
     }
 
 }
