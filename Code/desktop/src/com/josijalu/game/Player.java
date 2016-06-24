@@ -8,6 +8,8 @@ import com.badlogic.gdx.math.Vector2;
 public class Player {
     final MainMenu game;
     private String team;
+    private int lives;
+    private int max_lives;
     private int speed;
     private float speed_bullet;
     private boolean bullet_fired;
@@ -18,8 +20,10 @@ public class Player {
     private Texture player_graphic;
     private Texture player_graphic_aim;
 
-    public Player(String team, Vector2 position, MainMenu game) {
+    public Player(String team, int max_lives, Vector2 position, MainMenu game) {
         //setting the player-team
+        this.lives = max_lives;
+        this.max_lives = max_lives;
         if (team == "bird" || team == "pig") this.team = team;
         else this.team = "bird";
         //movmentspeed of the Player
@@ -34,8 +38,7 @@ public class Player {
         //x- & y-size of the player
         player_size = 128;
         //the hitbox of the player, which can be checked with the overlap method of the Rectangle class
-        player_hitbox = new Rectangle();
-        player_hitbox.set(this.position.x, this.position.y, player_size, player_size);
+        player_hitbox = new Rectangle(this.position.x, this.position.y, player_size, player_size);
         //the mouse-texture
         player_graphic_aim = new Texture(Gdx.files.internal("graphics/aim.png"));
         //the texture of the player depending on the team
@@ -49,6 +52,8 @@ public class Player {
     //updating the mouse position that the player is facing
     public void update_mouse_position() {
         mouse_position.set(Gdx.input.getX() - 32, -Gdx.input.getY() + 1040 - 32);
+        //update hitbox
+        player_hitbox.setPosition(this.position.x, this.position.y);
     }
 
     public float getDirectonAngle() {
@@ -121,6 +126,22 @@ public class Player {
         position = new Vector2(position_x, position_y);
     }
 
+    public int getLives() {
+        return lives;
+    }
+
+    public void setLives(int lives) {
+        this.lives = lives;
+    }
+
+    public int getMax_lives() {
+        return max_lives;
+    }
+
+    public void setMax_lives(int max_lives) {
+        this.max_lives = max_lives;
+    }
+
     public void move(boolean w, boolean a, boolean s, boolean d) {
         int speed1 = getSpeed() * 100;
         float x1 = getPosition().x;
@@ -159,9 +180,9 @@ public class Player {
 
         //Prove if players colliding with window border
         if (x1 < 0) x1 = 0;
-        if (x1 > game.width - getSize()) x1 = game.width - getSize();
+        else if (x1 > game.width - getSize()) x1 = game.width - getSize();
         if (y1 < 0) y1 = 0;
-        if (y1 > game.height - getSize()) y1 = game.height - getSize();
+        else if (y1 > game.height - getSize()) y1 = game.height - getSize();
 
         setPosition(x1, y1);
 
