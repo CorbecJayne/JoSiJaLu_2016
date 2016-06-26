@@ -52,8 +52,6 @@ public class Player {
     //updating the mouse position that the player is facing
     public void update_mouse_position() {
         mouse_position.set(Gdx.input.getX() - 32, -Gdx.input.getY() + 1040 - 32);
-        //update hitbox
-        player_hitbox.setPosition(this.position.x, this.position.y);
     }
 
     public float getDirectonAngle() {
@@ -124,6 +122,8 @@ public class Player {
 
     public void setPosition(float position_x, float position_y) {
         position = new Vector2(position_x, position_y);
+        //update hitbox
+        player_hitbox.setPosition(this.position.x, this.position.y);
     }
 
     public int getLives() {
