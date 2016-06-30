@@ -4,7 +4,7 @@ sourceCompatibility = '1.7'
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 ext {
-	mainClassName = "com.josijalu.game.IOSLauncher"
+	mainClassName = "com.mygdx.josijalu_game.IOSLauncher"
 }
 
 launchIPhoneSimulator.dependsOn build
