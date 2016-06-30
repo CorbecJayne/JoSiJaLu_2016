@@ -1,22 +1,25 @@
 package com.mygdx.josijalu_game.entity;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.josijalu_game.JosijaluGameClass;
 import com.mygdx.josijalu_game.camera.OrthoCamera;
 import com.mygdx.josijalu_game.screen.GameOverScreen;
-import com.mygdx.josijalu_game.screen.ScreenManager;
 
 /**
  * Created by User on 28.06.2016.
  */
 public class EntityManager {
 
+    final JosijaluGameClass game;
     private final Array<Entity> entities = new Array<Entity>();
     private Vector2 mousePos;
 
-    public EntityManager() {
+    public EntityManager(final JosijaluGameClass game) {
+        this.game = game;
     }
 
     public Vector2 getMousePos() {
@@ -51,12 +54,12 @@ public class EntityManager {
                         entities.removeValue(m, false);
                         p.health -= 50;
                         if (p.health <= 0)
-                            ScreenManager.setScreen(new GameOverScreen(false));
+                            game.setScreen(new GameOverScreen(false, game));
                     } else if (!p.playerTwo && m.playerTwo) {
                         entities.removeValue(m, false);
                         p.health -= 50;
                         if (p.health <= 0)
-                            ScreenManager.setScreen(new GameOverScreen(true));
+                            game.setScreen(new GameOverScreen(true, game));
                     }
                 }
 

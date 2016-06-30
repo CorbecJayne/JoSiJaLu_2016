@@ -61,6 +61,7 @@ public abstract class Entity {
         velocity.set(x, y);
         velocity.scl(Gdx.graphics.getDeltaTime());
     }
+
     public void setVelocity(Vector2 v) {
         velocity.set(v);
         velocity.scl(Gdx.graphics.getDeltaTime());
@@ -69,9 +70,11 @@ public abstract class Entity {
     public boolean outOfBounds() {
         return position.x <= -texture.getWidth() || position.x >= JosijaluGameClass.WIDTH || position.y <= -texture.getHeight() || position.y >= JosijaluGameClass.HEIGHT;
     }
+
     public boolean outOfBounds(Vector2 position) {
         return position.x <= -texture.getWidth() || position.x >= JosijaluGameClass.WIDTH || position.y <= -texture.getHeight() || position.y >= JosijaluGameClass.HEIGHT;
     }
+
     public static boolean outOfBounds(Vector2 position, Texture texture) {
         return position.x <= -texture.getWidth() || position.x >= JosijaluGameClass.WIDTH || position.y <= -texture.getHeight() || position.y >= JosijaluGameClass.HEIGHT;
     }

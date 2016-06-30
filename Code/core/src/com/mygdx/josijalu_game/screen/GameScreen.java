@@ -1,7 +1,9 @@
 package com.mygdx.josijalu_game.screen;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.Screen;
 import com.mygdx.josijalu_game.JosijaluGameClass;
 import com.mygdx.josijalu_game.TextureManager;
 import com.mygdx.josijalu_game.camera.OrthoCamera;
@@ -14,17 +16,18 @@ import com.mygdx.josijalu_game.entity.hud.HealthBar;
 /**
  * Created by User on 26.06.2016.
  */
-public class GameScreen extends Screen {
+public class GameScreen implements Screen {
 
+    final JosijaluGameClass game;
     private OrthoCamera camera;
     private EntityManager entityManager;
     private HUD hud;
 
-    @Override
-    public void create() {
+    public GameScreen(final JosijaluGameClass game) {
+        this.game = game;
         camera = new OrthoCamera();
 
-        entityManager = new EntityManager();
+        entityManager = new EntityManager(game);
         entityManager.addEntity(new Reticle(entityManager));
 
         entityManager.addEntity(new Player(new Vector2(0, (JosijaluGameClass.HEIGHT - TextureManager.PLAYER_ONE.getHeight()) / 2), new Vector2(0, 0), entityManager, false));
@@ -34,37 +37,38 @@ public class GameScreen extends Screen {
 
         hud.addElement(new HealthBar(entityManager.getPlayers().first()));
         hud.addElement(new HealthBar(entityManager.getPlayers().get(1)));
+    }
+
+    @Override
+    public void show() {
 
     }
 
     @Override
-    public void update() {
+    public void render(float delta) {
+        //return to the menu if "Esc" is pressed
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            game.setScreen(new MainMenuScreen(game));
+        }
         camera.update();
         entityManager.update(camera);
+        game.batch.setProjectionMatrix(camera.combined);
+        game.batch.begin();
+        game.batch.draw(TextureManager.BACKGROUND, 0, 0, JosijaluGameClass.WIDTH, JosijaluGameClass.HEIGHT);
+        entityManager.render(game.batch);
+        hud.render(game.batch);
 
-    }
-
-    @Override
-    public void render(SpriteBatch spriteBatch) {
-        spriteBatch.setProjectionMatrix(camera.combined);
-        spriteBatch.begin();
-        spriteBatch.draw(TextureManager.BACKGROUND, 0, 0, JosijaluGameClass.WIDTH, JosijaluGameClass.HEIGHT);
-        entityManager.render(spriteBatch);
-        hud.render(spriteBatch);
-
-        spriteBatch.end();
-
+        game.batch.end();
     }
 
     @Override
     public void resize(int width, int height) {
         camera.resize();
-
     }
 
     @Override
     public void dispose() {
-
+        
     }
 
     @Override
@@ -74,6 +78,11 @@ public class GameScreen extends Screen {
 
     @Override
     public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
 
     }
 }
