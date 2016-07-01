@@ -1,9 +1,9 @@
 package com.mygdx.josijalu_game.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -15,8 +15,9 @@ import com.mygdx.josijalu_game.camera.OrthoCamera;
 /**
  * Created by User on 29.06.2016.
  */
-public class MainMenuScreen extends Screen{
+public class MainMenuScreen implements Screen {
 
+    final JosijaluGameClass game;
     private OrthoCamera camera;
     private Stage stage;
     private TextButton.TextButtonStyle textButtonStyle;
@@ -24,8 +25,8 @@ public class MainMenuScreen extends Screen{
     private Skin skin;
     private BitmapFont font;
 
-    @Override
-    public void create() {
+    public MainMenuScreen(final JosijaluGameClass game) {
+        this.game = game;
         camera = new OrthoCamera();
         stage = new Stage();
 
@@ -54,19 +55,18 @@ public class MainMenuScreen extends Screen{
         //button Singleplayer:
         // Create a button with the "default" TextButtonStyle.
         final TextButton textButton = new TextButton("Singleplayer", textButtonStyle);
-        textButton.setPosition(JosijaluGameClass.WIDTH/2-200, JosijaluGameClass.HEIGHT/2+110);
+        textButton.setPosition(JosijaluGameClass.WIDTH / 2 - 200, JosijaluGameClass.HEIGHT / 2 + 110);
         stage.addActor(textButton);
         textButton.addListener(new ChangeListener() {
             public void changed(ChangeEvent event, Actor actor) {
                 textButton.setText("Loading...");
-                ScreenManager.setScreen(new GameScreen());
-                dispose();
+                game.setScreen(new GameScreen(game));
             }
         });
         //button Join:
         // Create a button with the "default" TextButtonStyle.
         final TextButton textButton_Join = new TextButton("Join Lan-Game", textButtonStyle);
-        textButton_Join.setPosition(JosijaluGameClass.WIDTH/2-200, JosijaluGameClass.HEIGHT/2+20);
+        textButton_Join.setPosition(JosijaluGameClass.WIDTH / 2 - 200, JosijaluGameClass.HEIGHT / 2 + 20);
         stage.addActor(textButton_Join);
         textButton_Join.addListener(new ChangeListener() {
             public void changed(ChangeEvent event, Actor actor) {
@@ -76,7 +76,7 @@ public class MainMenuScreen extends Screen{
         //button Host:
         // Create a button with the "default" TextButtonStyle.
         final TextButton textButton_Host = new TextButton("Host Server", textButtonStyle);
-        textButton_Host.setPosition(JosijaluGameClass.WIDTH/2-200, JosijaluGameClass.HEIGHT/2-70);
+        textButton_Host.setPosition(JosijaluGameClass.WIDTH / 2 - 200, JosijaluGameClass.HEIGHT / 2 - 70);
         stage.addActor(textButton_Host);
         textButton_Host.addListener(new ChangeListener() {
             public void changed(ChangeEvent event, Actor actor) {
@@ -86,38 +86,34 @@ public class MainMenuScreen extends Screen{
         //button Quit Game:
         // Create a button with the "default" TextButtonStyle.
         final TextButton textButton_Exit = new TextButton("Quit Game", textButtonStyle);
-        textButton_Exit.setPosition(JosijaluGameClass.WIDTH/2-200, JosijaluGameClass.HEIGHT/2-160);
+        textButton_Exit.setPosition(JosijaluGameClass.WIDTH / 2 - 200, JosijaluGameClass.HEIGHT / 2 - 160);
         stage.addActor(textButton_Exit);
         textButton_Exit.addListener(new ChangeListener() {
             public void changed(ChangeEvent event, Actor actor) {
-                dispose();
                 Gdx.app.exit();
             }
         });
         //here the button code ends
+    }
+
+    @Override
+    public void show() {
 
     }
 
     @Override
-    public void update() {
-        camera.update();
-
-    }
-
-    @Override
-    public void render(SpriteBatch spriteBatch) {
+    public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0.4f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        spriteBatch.setProjectionMatrix(camera.combined);
+        game.batch.setProjectionMatrix(camera.combined);
 
-        spriteBatch.begin();
-        font.draw(spriteBatch, "Welcome to TurfWars", JosijaluGameClass.WIDTH/2-75, JosijaluGameClass.HEIGHT/2+300);
-        spriteBatch.end();
+        game.batch.begin();
+        font.draw(game.batch, "Welcome to TurfWars", JosijaluGameClass.WIDTH / 2 - 75, JosijaluGameClass.HEIGHT / 2 + 300);
+        game.batch.end();
 
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
-
     }
 
     @Override
@@ -128,7 +124,6 @@ public class MainMenuScreen extends Screen{
     @Override
     public void dispose() {
         stage.dispose();
-
     }
 
     @Override
@@ -138,6 +133,11 @@ public class MainMenuScreen extends Screen{
 
     @Override
     public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
 
     }
 }
