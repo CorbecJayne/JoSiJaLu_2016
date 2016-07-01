@@ -17,8 +17,8 @@ public class Reticle extends Entity {
 
     @Override
     public void update() {
-        position.x = entityManager.getMousePos().x - texture.getWidth() / 2;
-        position.y = entityManager.getMousePos().y - texture.getHeight() / 2;
+        position.x = entityManager.getMousePos().x - sprite.getWidth() / 2;
+        position.y = entityManager.getMousePos().y - sprite.getHeight() / 2;
 
     }
 

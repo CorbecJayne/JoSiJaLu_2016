@@ -2,6 +2,7 @@ package com.mygdx.josijalu_game.entity;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.josijalu_game.JosijaluGameClass;
@@ -30,7 +31,11 @@ public class Player extends Entity {
         this.entityManager = entityManager;
         this.playerTwo = playerTwo;
         if (playerTwo)
-            texture = TextureManager.PLAYER_TWO;
+            sprite = new Sprite(TextureManager.PLAYER_TWO);
+        else
+            sprite.flip(true,false);
+
+
         size = getSize();
         health = 900;
     }
@@ -41,6 +46,7 @@ public class Player extends Entity {
             return new Circle(new Vector2(position.x + 63, position.y + 63), 50);
         else
             return new Circle(new Vector2(position.x + 68, position.y + 65), 50);
+
     }
 
     public static int getSize() {
@@ -59,8 +65,8 @@ public class Player extends Entity {
 
     @Override
     public void update() {
-        position.add(velocity);
 
+        position.add(velocity);
         Vector2 v = new Vector2(0, 0);
 
         if (playerTwo) {
