@@ -57,7 +57,6 @@ public class GameScreen implements Screen {
         game.batch.draw(TextureManager.BACKGROUND, 0, 0, JosijaluGameClass.WIDTH, JosijaluGameClass.HEIGHT);
         entityManager.render(game.batch);
         hud.render(game.batch);
-
         game.batch.end();
     }
 

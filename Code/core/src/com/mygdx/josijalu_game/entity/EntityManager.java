@@ -1,6 +1,5 @@
 package com.mygdx.josijalu_game.entity;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -53,13 +52,15 @@ public class EntityManager {
                     if (p.playerTwo && !m.playerTwo) {
                         entities.removeValue(m, false);
                         p.health -= 50;
-                        if (p.health <= 0)
+                        if (p.health <= 0) {
                             game.setScreen(new GameOverScreen(false, game));
+                        }
                     } else if (!p.playerTwo && m.playerTwo) {
                         entities.removeValue(m, false);
                         p.health -= 50;
-                        if (p.health <= 0)
+                        if (p.health <= 0) {
                             game.setScreen(new GameOverScreen(true, game));
+                        }
                     }
                 }
 
