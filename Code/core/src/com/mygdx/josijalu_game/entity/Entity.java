@@ -2,6 +2,7 @@ package com.mygdx.josijalu_game.entity;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Ellipse;
@@ -14,20 +15,21 @@ import com.mygdx.josijalu_game.JosijaluGameClass;
  */
 public abstract class Entity {
 
-    protected Texture texture;
     protected Vector2 position, velocity;
     protected int size;
+    protected Sprite sprite;
 
     public Entity(Texture texture, Vector2 position, Vector2 velocity) {
-        this.texture = texture;
         this.position = position;
         this.velocity = velocity;
+        sprite = new Sprite(texture);
     }
 
     public abstract void update();
 
     public void render(SpriteBatch spriteBatch) {
-        spriteBatch.draw(texture, position.x, position.y);
+        spriteBatch.draw(sprite, position.x, position.y);
+
     }
 
     public Vector2 getPosition() {
@@ -35,16 +37,16 @@ public abstract class Entity {
     }
 
     public Rectangle getBoundsRect() {
-        return new Rectangle(position.x, position.y, texture.getWidth(), texture.getHeight());
+        return new Rectangle(position.x, position.y, sprite.getWidth(), sprite.getHeight());
 
     }
 
     public Circle getBounds() {
-        if (texture.getWidth() == texture.getHeight())
-            return new Circle(position.x, position.y, texture.getWidth() / 2);
-        boolean portrait = texture.getHeight() > texture.getWidth();
-        int min = Math.min(texture.getWidth(), texture.getHeight());
-        int max = Math.max(texture.getWidth(), texture.getHeight());
+        if (sprite.getWidth() == sprite.getHeight())
+            return new Circle(position.x, position.y, sprite.getWidth() / 2);
+        boolean portrait = sprite.getHeight() > sprite.getWidth();
+        float min = Math.min(sprite.getWidth(), sprite.getHeight());
+        float max = Math.max(sprite.getWidth(), sprite.getHeight());
         if (portrait)
             return new Circle(position.x, position.y + (max - min) / 2, min);
         else
@@ -53,7 +55,7 @@ public abstract class Entity {
     }
 
     public Ellipse getBoundsElps() {
-        return new Ellipse(position.x, position.y, texture.getWidth(), texture.getHeight());
+        return new Ellipse(position.x, position.y, sprite.getWidth(), sprite.getHeight());
 
     }
 
@@ -68,11 +70,11 @@ public abstract class Entity {
     }
 
     public boolean outOfBounds() {
-        return position.x <= -texture.getWidth() || position.x >= JosijaluGameClass.WIDTH || position.y <= -texture.getHeight() || position.y >= JosijaluGameClass.HEIGHT;
+        return position.x <= -sprite.getWidth() || position.x >= JosijaluGameClass.WIDTH || position.y <= -sprite.getHeight() || position.y >= JosijaluGameClass.HEIGHT;
     }
 
     public boolean outOfBounds(Vector2 position) {
-        return position.x <= -texture.getWidth() || position.x >= JosijaluGameClass.WIDTH || position.y <= -texture.getHeight() || position.y >= JosijaluGameClass.HEIGHT;
+        return position.x <= -sprite.getWidth() || position.x >= JosijaluGameClass.WIDTH || position.y <= -sprite.getHeight() || position.y >= JosijaluGameClass.HEIGHT;
     }
 
     public static boolean outOfBounds(Vector2 position, Texture texture) {

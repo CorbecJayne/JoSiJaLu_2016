@@ -1,5 +1,6 @@
 package com.mygdx.josijalu_game.entity;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.josijalu_game.TextureManager;
@@ -15,7 +16,7 @@ public class Missile extends Entity {
         super(TextureManager.MISSILE_ONE, position, direction);
         this.playerTwo = playerTwo;
         if (playerTwo)
-            texture = TextureManager.MISSILE_TWO;
+            sprite = new Sprite(TextureManager.MISSILE_TWO);
         size = getSize();
     }
 
