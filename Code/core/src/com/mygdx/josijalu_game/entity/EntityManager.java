@@ -53,13 +53,13 @@ public class EntityManager {
                         entities.removeValue(m, false);
                         p.health -= 50;
                         if (p.health <= 0) {
-                            game.setScreen(new GameOverScreen(false, game));
+                            game.setScreen(new GameOverScreen(true, game));
                         }
                     } else if (!p.playerTwo && m.playerTwo) {
                         entities.removeValue(m, false);
                         p.health -= 50;
                         if (p.health <= 0) {
-                            game.setScreen(new GameOverScreen(true, game));
+                            game.setScreen(new GameOverScreen(false, game));
                         }
                     }
                 }

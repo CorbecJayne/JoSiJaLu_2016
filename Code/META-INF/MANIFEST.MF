@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Class-Path: com.mygdx.josijalu_game.desktop.DesktopLauncher
+Main-Class: com.mygdx.josijalu_game.desktop.DesktopLauncher
+

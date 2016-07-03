@@ -41,7 +41,8 @@ public class GameOverScreen implements Screen {
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
-        game.batch.draw(texture, 0, 0);
+        game.batch.draw(texture, JosijaluGameClass.WIDTH / 2 + 150, JosijaluGameClass.HEIGHT / 2);
+        game.font.draw(game.batch, "Winner is:", JosijaluGameClass.WIDTH / 2 + 10, JosijaluGameClass.HEIGHT / 2 + 90, 0, 0, false);
         game.batch.end();
 
     }

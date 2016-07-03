@@ -1,6 +1,7 @@
 package com.mygdx.josijalu_game;
 
 
+import com.badlogic.gdx.graphics.Color;
 import shadering.Shadering;
 
 import com.badlogic.gdx.Game;
@@ -19,6 +20,8 @@ public class JosijaluGameClass extends Game {
     public void create() {
         batch = new SpriteBatch(1000, Shadering.createDefaultShader());
         font = new BitmapFont();
+        font.setColor(Color.RED);
+        font.getData().setScale(5F, 5F);
         this.setScreen(new MainMenuScreen(this));
     }
 

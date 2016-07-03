@@ -2,8 +2,8 @@ package com.mygdx.josijalu_game.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.math.Vector2;
 import com.mygdx.josijalu_game.JosijaluGameClass;
 import com.mygdx.josijalu_game.TextureManager;
 import com.mygdx.josijalu_game.camera.OrthoCamera;
@@ -22,6 +22,7 @@ public class GameScreen implements Screen {
     private OrthoCamera camera;
     private EntityManager entityManager;
     private HUD hud;
+    float totalTime = 30; //starting at 30 seconds
 
     public GameScreen(final JosijaluGameClass game) {
         this.game = game;
@@ -51,11 +52,19 @@ public class GameScreen implements Screen {
             dispose();
             game.setScreen(new MainMenuScreen(game));
         }
+        float deltaTime = Gdx.graphics.getDeltaTime();
+        totalTime -= deltaTime; //if counting down
+        int seconds = ((int) totalTime);
+        if (seconds <= 0) {
+            dispose();
+            game.setScreen(new GameOverScreen(true, game));
+        }
         camera.update();
         entityManager.update(camera);
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
         game.batch.draw(TextureManager.BACKGROUND, 0, 0, JosijaluGameClass.WIDTH, JosijaluGameClass.HEIGHT);
+        game.font.draw(game.batch, "0:" + seconds, JosijaluGameClass.WIDTH / 2 + 50, JosijaluGameClass.HEIGHT / 2 + 450, 0, 0, false);
         entityManager.render(game.batch);
         hud.render(game.batch);
         game.batch.end();
@@ -68,7 +77,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-        
+
     }
 
     @Override

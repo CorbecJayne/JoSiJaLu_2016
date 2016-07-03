@@ -34,7 +34,7 @@ public class MainMenuScreen implements Screen {
         this.game = game;
         camera = new OrthoCamera();
         stage = new Stage(new ScalingViewport(Scaling.stretch, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), new OrthographicCamera()),
-        		new SpriteBatch(1000, Shadering.createDefaultShader()));
+                new SpriteBatch(1000, Shadering.createDefaultShader()));
 
         camera.resize();
 
@@ -116,7 +116,7 @@ public class MainMenuScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
-        font.draw(game.batch, "Welcome to TurfWars", JosijaluGameClass.WIDTH / 2 - 75, JosijaluGameClass.HEIGHT / 2 + 300);
+        game.font.draw(game.batch, "Welcome to TurfWars", JosijaluGameClass.WIDTH / 2 - 350, JosijaluGameClass.HEIGHT / 2 + 300);
         game.batch.end();
 
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
