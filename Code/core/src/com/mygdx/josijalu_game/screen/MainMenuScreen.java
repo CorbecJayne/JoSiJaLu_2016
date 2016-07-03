@@ -1,14 +1,19 @@
 package com.mygdx.josijalu_game.screen;
 
+import shadering.Shadering;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Scaling;
+import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.mygdx.josijalu_game.JosijaluGameClass;
 import com.mygdx.josijalu_game.camera.OrthoCamera;
 
@@ -28,7 +33,8 @@ public class MainMenuScreen implements Screen {
     public MainMenuScreen(final JosijaluGameClass game) {
         this.game = game;
         camera = new OrthoCamera();
-        stage = new Stage();
+        stage = new Stage(new ScalingViewport(Scaling.stretch, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), new OrthographicCamera()),
+        		new SpriteBatch(1000, Shadering.createDefaultShader()));
 
         camera.resize();
 

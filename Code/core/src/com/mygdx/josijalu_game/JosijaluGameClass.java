@@ -1,9 +1,12 @@
 package com.mygdx.josijalu_game;
 
+
+import shadering.Shadering;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.mygdx.josijalu_game.screen.MainMenuScreen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.josijalu_game.screen.MainMenuScreen;
 
 public class JosijaluGameClass extends Game {
     public static int HEIGHT = 1080, WIDTH = 1920;
@@ -14,7 +17,7 @@ public class JosijaluGameClass extends Game {
     }
 
     public void create() {
-        batch = new SpriteBatch();
+        batch = new SpriteBatch(1000, Shadering.createDefaultShader());
         font = new BitmapFont();
         this.setScreen(new MainMenuScreen(this));
     }
