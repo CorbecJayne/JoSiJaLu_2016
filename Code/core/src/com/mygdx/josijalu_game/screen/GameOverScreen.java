@@ -23,9 +23,9 @@ public class GameOverScreen implements Screen {
         camera = new OrthoCamera();
         camera.resize();
         if (playerTwoWon)
-            texture = TextureManager.PLAYER_TWO_WON;
+            texture = TextureManager.PLAYER_LEFT_WON;
         else
-            texture = TextureManager.PLAYER_ONE_WON;
+            texture = TextureManager.PLAYER_RIGHT_WON;
 
 
     }

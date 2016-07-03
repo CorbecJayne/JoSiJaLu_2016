@@ -18,20 +18,24 @@ public class Player extends Entity {
     public final boolean playerTwo;
     private final EntityManager entityManager;
 
-    private int shotSpeed = 10;
-    private final int shotDelay = 250; // Delay between shots in milliseconds
+    private int shotSpeed = 20;
+    private final int shotDelay = 200; // Delay between shots in milliseconds
     private float fireRate = 1; // 1=normal; lower fireRate -> higher shotDelay; higher fireRate -> lower shotDelay
     private long lastFire;
 
     private static final int speedMod = 300;
     private float speedCurrent = 2;
 
-    public Player(Vector2 position, Vector2 direction, EntityManager entityManager, boolean playerTwo) {
-        super(TextureManager.PLAYER_ONE, position, direction);
+    public static int getSize() {
+        return 128;
+    }
+
+    public Player(Vector2 position, Vector2 direction, EntityManager entityManager, boolean playerTwo, byte gameMode) {
+        super(TextureManager.PLAYER_LEFT, position, direction);
         this.entityManager = entityManager;
         this.playerTwo = playerTwo;
         if (playerTwo)
-            sprite = new Sprite(TextureManager.PLAYER_TWO);
+            sprite = new Sprite(TextureManager.PLAYER_RIGHT);
         else
             sprite.flip(true,false);
 
@@ -47,10 +51,6 @@ public class Player extends Entity {
         else
             return new Circle(new Vector2(position.x + 68, position.y + 65), 50);
 
-    }
-
-    public static int getSize() {
-        return 128;
     }
 
     private Vector2 getShotVector() {

@@ -60,34 +60,38 @@ public class MainMenuScreen implements Screen {
 
         //button Singleplayer:
         // Create a button with the "default" TextButtonStyle.
-        final TextButton textButton = new TextButton("Singleplayer", textButtonStyle);
-        textButton.setPosition(JosijaluGameClass.WIDTH / 2 - 200, JosijaluGameClass.HEIGHT / 2 + 110);
-        stage.addActor(textButton);
-        textButton.addListener(new ChangeListener() {
+        final TextButton tbStandard = new TextButton("Standard", textButtonStyle);
+        tbStandard.setPosition(JosijaluGameClass.WIDTH / 2 - 200, JosijaluGameClass.HEIGHT / 2 + 110);
+        stage.addActor(tbStandard);
+        tbStandard.addListener(new ChangeListener() {
             public void changed(ChangeEvent event, Actor actor) {
-                textButton.setText("Loading...");
+                tbStandard.setText("Loading...");
                 dispose();
-                game.setScreen(new GameScreen(game));
+                game.setScreen(new GameScreen(game, (byte) 0));
             }
         });
         //button Join:
         // Create a button with the "default" TextButtonStyle.
-        final TextButton textButton_Join = new TextButton("Join Lan-Game", textButtonStyle);
-        textButton_Join.setPosition(JosijaluGameClass.WIDTH / 2 - 200, JosijaluGameClass.HEIGHT / 2 + 20);
-        stage.addActor(textButton_Join);
-        textButton_Join.addListener(new ChangeListener() {
+        final TextButton tbAsteroids = new TextButton("Asteroids", textButtonStyle);
+        tbAsteroids.setPosition(JosijaluGameClass.WIDTH / 2 - 200, JosijaluGameClass.HEIGHT / 2 + 20);
+        stage.addActor(tbAsteroids);
+        tbAsteroids.addListener(new ChangeListener() {
             public void changed(ChangeEvent event, Actor actor) {
-                textButton_Join.setText("Join Lan-Game (Coming soon)");
+                tbStandard.setText("Loading...");
+                dispose();
+                game.setScreen(new GameScreen(game, (byte) 2));
             }
         });
         //button Host:
         // Create a button with the "default" TextButtonStyle.
-        final TextButton textButton_Host = new TextButton("Host Server", textButtonStyle);
-        textButton_Host.setPosition(JosijaluGameClass.WIDTH / 2 - 200, JosijaluGameClass.HEIGHT / 2 - 70);
-        stage.addActor(textButton_Host);
-        textButton_Host.addListener(new ChangeListener() {
+        final TextButton tbDefence = new TextButton("Defence", textButtonStyle);
+        tbDefence.setPosition(JosijaluGameClass.WIDTH / 2 - 200, JosijaluGameClass.HEIGHT / 2 - 70);
+        stage.addActor(tbDefence);
+        tbDefence.addListener(new ChangeListener() {
             public void changed(ChangeEvent event, Actor actor) {
-                textButton_Host.setText("Host Server (Coming soon)");
+                tbStandard.setText("Loading...");
+                dispose();
+                game.setScreen(new GameScreen(game, (byte) 1));
             }
         });
         //button Quit Game:

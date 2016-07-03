@@ -20,24 +20,33 @@ public class GameScreen implements Screen {
 
     final JosijaluGameClass game;
     private OrthoCamera camera;
+
     private EntityManager entityManager;
     private HUD hud;
+
+    private byte gameMode; //0: Standard; 1: Defence; 2: Asteroids
+
     float totalTime = 30; //starting at 30 seconds
 
-    public GameScreen(final JosijaluGameClass game) {
+    public GameScreen(final JosijaluGameClass game, final byte gameMode) {
+        this.gameMode = gameMode;
+
         this.game = game;
         camera = new OrthoCamera();
 
-        entityManager = new EntityManager(game);
-        entityManager.addEntity(new Reticle(entityManager));
+        entityManager = new EntityManager(game, gameMode);
 
-        entityManager.addEntity(new Player(new Vector2(0, (JosijaluGameClass.HEIGHT - TextureManager.PLAYER_ONE.getHeight()) / 2), new Vector2(0, 0), entityManager, false));
-        entityManager.addEntity(new Player(new Vector2(JosijaluGameClass.WIDTH - TextureManager.PLAYER_TWO.getWidth(), (JosijaluGameClass.HEIGHT - TextureManager.PLAYER_TWO.getHeight()) / 2), new Vector2(0, 0), entityManager, true));
+        if(gameMode == 1)
+            entityManager.addEntity(new Reticle(entityManager));
+
+        entityManager.addEntity(new Player(new Vector2(0, (JosijaluGameClass.HEIGHT - TextureManager.PLAYER_LEFT.getHeight()) / 2), new Vector2(0, 0), entityManager, false, gameMode));
+        entityManager.addEntity(new Player(new Vector2(JosijaluGameClass.WIDTH - TextureManager.PLAYER_RIGHT.getWidth(), (JosijaluGameClass.HEIGHT - TextureManager.PLAYER_RIGHT.getHeight()) / 2), new Vector2(0, 0), entityManager, true, gameMode));
 
         hud = new HUD();
 
         hud.addElement(new HealthBar(entityManager.getPlayers().first()));
-        hud.addElement(new HealthBar(entityManager.getPlayers().get(1)));
+        if (gameMode != 1)
+            hud.addElement(new HealthBar(entityManager.getPlayers().get(1)));
     }
 
     @Override

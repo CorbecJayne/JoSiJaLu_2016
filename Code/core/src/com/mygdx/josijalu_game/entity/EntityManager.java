@@ -14,11 +14,16 @@ import com.mygdx.josijalu_game.screen.GameOverScreen;
 public class EntityManager {
 
     final JosijaluGameClass game;
-    private final Array<Entity> entities = new Array<Entity>();
+    private byte gameMode; //0: Standard; 1: Defence; 2: Asteroids
+
+    private final Array<Entity> entities;
     private Vector2 mousePos;
 
-    public EntityManager(final JosijaluGameClass game) {
+
+    public EntityManager(final JosijaluGameClass game, final byte gameMode) {
+        this.gameMode = gameMode;
         this.game = game;
+        entities = new Array<Entity>();
     }
 
     public Vector2 getMousePos() {
@@ -27,10 +32,10 @@ public class EntityManager {
 
     public void update(OrthoCamera camera) {
         mousePos = camera.unprojectCoordinates(Gdx.input.getX(), Gdx.input.getY());
+
+
         for (Entity e : entities) {
             e.update();
-//            if (e.outOfBounds())
-//                entities.removeValue(e, false);
         }
         for (Missile m : getMissiles())
             if (m.outOfBounds())
@@ -49,15 +54,21 @@ public class EntityManager {
         for (Player p : getPlayers()) {
             for (Missile m : getMissiles()) {
                 if (p.getBounds().overlaps(m.getBounds())) {
-                    if (p.playerTwo && !m.playerTwo) {
+                    if (gameMode == 1 && !p.playerTwo) {
                         entities.removeValue(m, false);
-                        p.health -= 50;
+                        p.health -= Missile.DAMAGE;
+                        if (p.health <= 0) {
+                            game.setScreen(new GameOverScreen(false, game));
+                        }
+                    } else if (p.playerTwo && !m.playerTwo) {
+                        entities.removeValue(m, false);
+                        p.health -= Missile.DAMAGE;
                         if (p.health <= 0) {
                             game.setScreen(new GameOverScreen(true, game));
                         }
                     } else if (!p.playerTwo && m.playerTwo) {
                         entities.removeValue(m, false);
-                        p.health -= 50;
+                        p.health -= Missile.DAMAGE;
                         if (p.health <= 0) {
                             game.setScreen(new GameOverScreen(false, game));
                         }
@@ -86,10 +97,6 @@ public class EntityManager {
             if (e instanceof Missile)
                 ret.add((Missile) e);
         return ret;
-    }
-
-    public boolean gameOver() {
-        return getPlayers().size == 1;
     }
 
 }

@@ -10,9 +10,14 @@ public class Reticle extends Entity {
 
     EntityManager entityManager;
 
+    public static int getSize() {
+        return 64;
+    }
+
     public Reticle(EntityManager entityManager) {
         super(TextureManager.RETICLE, new Vector2(0, 0), new Vector2(0, 0));
         this.entityManager = entityManager;
+        size = getSize();
     }
 
     @Override
@@ -20,10 +25,6 @@ public class Reticle extends Entity {
         position.x = entityManager.getMousePos().x - sprite.getWidth() / 2;
         position.y = entityManager.getMousePos().y - sprite.getHeight() / 2;
 
-    }
-
-    public static int getSize() {
-        return 64;
     }
 
 }

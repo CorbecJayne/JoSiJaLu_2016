@@ -11,12 +11,17 @@ import com.mygdx.josijalu_game.TextureManager;
 public class Missile extends Entity {
 
     public boolean playerTwo;
+    public static final int DAMAGE = 50;
+
+    public static int getSize() {
+        return 32;
+    }
 
     public Missile(Vector2 position, Vector2 direction, boolean playerTwo) {
-        super(TextureManager.MISSILE_ONE, position, direction);
+        super(TextureManager.MISSILE_LEFT, position, direction);
         this.playerTwo = playerTwo;
         if (playerTwo)
-            sprite = new Sprite(TextureManager.MISSILE_TWO);
+            sprite = new Sprite(TextureManager.MISSILE_RIGHT);
         size = getSize();
     }
 
@@ -31,8 +36,5 @@ public class Missile extends Entity {
 
     }
 
-    public static int getSize() {
-        return 32;
-    }
 
 }

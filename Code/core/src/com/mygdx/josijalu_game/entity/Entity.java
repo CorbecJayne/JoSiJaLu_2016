@@ -25,10 +25,11 @@ public abstract class Entity {
         sprite = new Sprite(texture);
     }
 
+
     public abstract void update();
 
     public void render(SpriteBatch spriteBatch) {
-        spriteBatch.draw(sprite, position.x, position.y);
+        spriteBatch.draw(sprite, position.x, position.y, size, size);
 
     }
 
@@ -37,20 +38,12 @@ public abstract class Entity {
     }
 
     public Rectangle getBoundsRect() {
-        return new Rectangle(position.x, position.y, sprite.getWidth(), sprite.getHeight());
+        return new Rectangle(position.x, position.y, size, size);
 
     }
 
     public Circle getBounds() {
-        if (sprite.getWidth() == sprite.getHeight())
-            return new Circle(position.x, position.y, sprite.getWidth() / 2);
-        boolean portrait = sprite.getHeight() > sprite.getWidth();
-        float min = Math.min(sprite.getWidth(), sprite.getHeight());
-        float max = Math.max(sprite.getWidth(), sprite.getHeight());
-        if (portrait)
-            return new Circle(position.x, position.y + (max - min) / 2, min);
-        else
-            return new Circle(position.x + (max - min) / 2, position.y, min / 2);
+        return new Circle(position.x + size/2, position.y + size/2, size/2);
 
     }
 
@@ -70,15 +63,15 @@ public abstract class Entity {
     }
 
     public boolean outOfBounds() {
-        return position.x <= -sprite.getWidth() || position.x >= JosijaluGameClass.WIDTH || position.y <= -sprite.getHeight() || position.y >= JosijaluGameClass.HEIGHT;
+        return position.x + size/2 <= -sprite.getWidth() || position.x >= JosijaluGameClass.WIDTH || position.y + size/2 <= -sprite.getHeight() || position.y >= JosijaluGameClass.HEIGHT;
     }
 
-    public boolean outOfBounds(Vector2 position) {
-        return position.x <= -sprite.getWidth() || position.x >= JosijaluGameClass.WIDTH || position.y <= -sprite.getHeight() || position.y >= JosijaluGameClass.HEIGHT;
-    }
-
-    public static boolean outOfBounds(Vector2 position, Texture texture) {
-        return position.x <= -texture.getWidth() || position.x >= JosijaluGameClass.WIDTH || position.y <= -texture.getHeight() || position.y >= JosijaluGameClass.HEIGHT;
-    }
+//    public boolean outOfBounds(Vector2 position) {
+//        return position.x <= -sprite.getWidth() || position.x >= JosijaluGameClass.WIDTH || position.y <= -sprite.getHeight() || position.y >= JosijaluGameClass.HEIGHT;
+//    }
+//
+//    public static boolean outOfBounds(Vector2 position, Texture texture) {
+//        return position.x <= -texture.getWidth() || position.x >= JosijaluGameClass.WIDTH || position.y <= -texture.getHeight() || position.y >= JosijaluGameClass.HEIGHT;
+//    }
 
 }

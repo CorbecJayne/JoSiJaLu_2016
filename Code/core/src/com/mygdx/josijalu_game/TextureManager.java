@@ -10,14 +10,14 @@ public class TextureManager {
 
     public static Texture BACKGROUND = new Texture(Gdx.files.internal("assets/graphics/background.png"));
 
-    public static Texture PLAYER_ONE = new Texture(Gdx.files.internal("assets/graphics/enemy.png"));
-    public static Texture PLAYER_TWO = new Texture(Gdx.files.internal("assets/graphics/player.png"));
+    public static Texture PLAYER_LEFT = new Texture(Gdx.files.internal("assets/graphics/enemy.png")); // Pig
+    public static Texture PLAYER_RIGHT = new Texture(Gdx.files.internal("assets/graphics/player.png")); // bird
 
-    public static Texture MISSILE_ONE = new Texture(Gdx.files.internal("assets/graphics/missile.png"));
-    public static Texture MISSILE_TWO = new Texture(Gdx.files.internal("assets/graphics/missile.png"));
+    public static Texture MISSILE_LEFT = new Texture(Gdx.files.internal("assets/graphics/missile.png")); // pig's missile
+    public static Texture MISSILE_RIGHT = new Texture(Gdx.files.internal("assets/graphics/missile.png")); // bird's missile
 
-    public static Texture PLAYER_TWO_WON = new Texture(Gdx.files.internal("assets/graphics/enemy.png"));
-    public static Texture PLAYER_ONE_WON = new Texture(Gdx.files.internal("assets/graphics/player.png"));
+    public static Texture PLAYER_LEFT_WON = new Texture(Gdx.files.internal("assets/graphics/enemy.png")); //pig won
+    public static Texture PLAYER_RIGHT_WON = new Texture(Gdx.files.internal("assets/graphics/player.png")); //bird won
 
     public static Texture RETICLE = new Texture(Gdx.files.internal("assets/graphics/reticle.png"));
 
