@@ -24,9 +24,9 @@ public class GameScreen implements Screen {
     private EntityManager entityManager;
     private HUD hud;
 
-    private byte gameMode; //0: Standard; 1: Defence; 2: Asteroids
+    private final byte gameMode; //0: Standard; 1: Defence; 2: Asteroids
 
-    float totalTime = 30; //starting at 30 seconds
+    float totalTime = 60; //starting at 30 seconds
 
     public GameScreen(final JosijaluGameClass game, final byte gameMode) {
         this.gameMode = gameMode;
@@ -36,7 +36,7 @@ public class GameScreen implements Screen {
 
         entityManager = new EntityManager(game, gameMode);
 
-        if(gameMode == 1)
+        if (gameMode == 1)
             entityManager.addEntity(new Reticle(entityManager));
 
         entityManager.addEntity(new Player(new Vector2(0, (JosijaluGameClass.HEIGHT - TextureManager.PLAYER_LEFT.getHeight()) / 2), new Vector2(0, 0), entityManager, false, gameMode));
@@ -61,19 +61,22 @@ public class GameScreen implements Screen {
             dispose();
             game.setScreen(new MainMenuScreen(game));
         }
+
         float deltaTime = Gdx.graphics.getDeltaTime();
         totalTime -= deltaTime; //if counting down
         int seconds = ((int) totalTime);
-        if (seconds <= 0) {
+        if (seconds <= 0 && gameMode == 1) {
             dispose();
             game.setScreen(new GameOverScreen(true, game));
         }
+
         camera.update();
         entityManager.update(camera);
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
         game.batch.draw(TextureManager.BACKGROUND, 0, 0, JosijaluGameClass.WIDTH, JosijaluGameClass.HEIGHT);
-        game.font.draw(game.batch, "0:" + seconds, JosijaluGameClass.WIDTH / 2 + 50, JosijaluGameClass.HEIGHT / 2 + 450, 0, 0, false);
+        if (gameMode == 1)
+            game.font.draw(game.batch, "0:" + seconds, JosijaluGameClass.WIDTH / 2 + 50, JosijaluGameClass.HEIGHT / 2 + 450, 0, 0, false);
         entityManager.render(game.batch);
         hud.render(game.batch);
         game.batch.end();

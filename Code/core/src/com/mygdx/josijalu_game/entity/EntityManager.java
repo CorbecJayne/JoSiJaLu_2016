@@ -14,7 +14,7 @@ import com.mygdx.josijalu_game.screen.GameOverScreen;
 public class EntityManager {
 
     final JosijaluGameClass game;
-    private byte gameMode; //0: Standard; 1: Defence; 2: Asteroids
+    private final byte gameMode; //0: Standard; 1: Defence; 2: Asteroids
 
     private final Array<Entity> entities;
     private Vector2 mousePos;
