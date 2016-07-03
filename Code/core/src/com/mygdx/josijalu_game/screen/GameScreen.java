@@ -48,6 +48,7 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         //return to the menu if "Esc" is pressed
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            dispose();
             game.setScreen(new MainMenuScreen(game));
         }
         camera.update();

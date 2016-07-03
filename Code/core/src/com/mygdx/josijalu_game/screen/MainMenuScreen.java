@@ -66,6 +66,7 @@ public class MainMenuScreen implements Screen {
         textButton.addListener(new ChangeListener() {
             public void changed(ChangeEvent event, Actor actor) {
                 textButton.setText("Loading...");
+                dispose();
                 game.setScreen(new GameScreen(game));
             }
         });
