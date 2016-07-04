@@ -21,9 +21,9 @@ public class HealthBar extends HudElement {
         maxHealth = player.health;
 
         if (player.playerTwo)
-            position = new Vector2(0, JosijaluGameClass.HEIGHT - girth);
-        else
             position = new Vector2(JosijaluGameClass.WIDTH / 2, JosijaluGameClass.HEIGHT - girth);
+        else
+            position = new Vector2(0, JosijaluGameClass.HEIGHT - girth);
 
 
     }
@@ -34,7 +34,7 @@ public class HealthBar extends HudElement {
     }
 
     public void render(SpriteBatch spriteBatch) {
-        spriteBatch.draw(texture, position.x, position.y, maxHealth, girth);
+        spriteBatch.draw(sprite, position.x, position.y, maxHealth, girth);
         spriteBatch.draw(TextureManager.DAMAGE, position.x, position.y, maxHealth - player.health, girth);
     }
 

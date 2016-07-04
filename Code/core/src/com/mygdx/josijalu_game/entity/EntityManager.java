@@ -4,19 +4,27 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.josijalu_game.JosijaluGameClass;
+import com.mygdx.josijalu_game.SoundManager;
 import com.mygdx.josijalu_game.camera.OrthoCamera;
 import com.mygdx.josijalu_game.screen.GameOverScreen;
-import com.mygdx.josijalu_game.screen.ScreenManager;
 
 /**
  * Created by User on 28.06.2016.
  */
 public class EntityManager {
 
-    private final Array<Entity> entities = new Array<Entity>();
+    final JosijaluGameClass game;
+    private final byte gameMode; //0: Standard; 1: Defence; 2: Asteroids
+
+    private final Array<Entity> entities;
     private Vector2 mousePos;
 
-    public EntityManager() {
+
+    public EntityManager(final JosijaluGameClass game, final byte gameMode) {
+        this.gameMode = gameMode;
+        this.game = game;
+        entities = new Array<Entity>();
     }
 
     public Vector2 getMousePos() {
@@ -25,10 +33,10 @@ public class EntityManager {
 
     public void update(OrthoCamera camera) {
         mousePos = camera.unprojectCoordinates(Gdx.input.getX(), Gdx.input.getY());
+
+
         for (Entity e : entities) {
             e.update();
-//            if (e.outOfBounds())
-//                entities.removeValue(e, false);
         }
         for (Missile m : getMissiles())
             if (m.outOfBounds())
@@ -47,16 +55,27 @@ public class EntityManager {
         for (Player p : getPlayers()) {
             for (Missile m : getMissiles()) {
                 if (p.getBounds().overlaps(m.getBounds())) {
-                    if (p.playerTwo && !m.playerTwo) {
+                    if (gameMode == 1 && !p.playerTwo) {
+                        SoundManager.hit.play();
                         entities.removeValue(m, false);
-                        p.health -= 50;
-                        if (p.health <= 0)
-                            ScreenManager.setScreen(new GameOverScreen(false));
+                        p.health -= Missile.DAMAGE;
+                        if (p.health <= 0) {
+                            game.setScreen(new GameOverScreen(false, game));
+                        }
+                    } else if (p.playerTwo && !m.playerTwo) {
+                        SoundManager.hit.play();
+                        entities.removeValue(m, false);
+                        p.health -= Missile.DAMAGE;
+                        if (p.health <= 0) {
+                            game.setScreen(new GameOverScreen(true, game));
+                        }
                     } else if (!p.playerTwo && m.playerTwo) {
+                        SoundManager.hit.play();
                         entities.removeValue(m, false);
-                        p.health -= 50;
-                        if (p.health <= 0)
-                            ScreenManager.setScreen(new GameOverScreen(true));
+                        p.health -= Missile.DAMAGE;
+                        if (p.health <= 0) {
+                            game.setScreen(new GameOverScreen(false, game));
+                        }
                     }
                 }
 
@@ -82,10 +101,6 @@ public class EntityManager {
             if (e instanceof Missile)
                 ret.add((Missile) e);
         return ret;
-    }
-
-    public boolean gameOver() {
-        return getPlayers().size == 1;
     }
 
 }
