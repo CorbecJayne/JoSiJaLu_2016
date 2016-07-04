@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.josijalu_game.JosijaluGameClass;
+import com.mygdx.josijalu_game.SoundManager;
 import com.mygdx.josijalu_game.TextureManager;
 import com.mygdx.josijalu_game.camera.OrthoCamera;
 
@@ -19,6 +20,10 @@ public class GameOverScreen implements Screen {
     private Texture texture;
 
     public GameOverScreen(boolean playerTwoWon, JosijaluGameClass game) {
+        if (SoundManager.ambientNoise.isPlaying() == true){
+            SoundManager.ambientNoise.stop();
+            SoundManager.ambientNoise.dispose();
+        }
         this.game = game;
         camera = new OrthoCamera();
         camera.resize();

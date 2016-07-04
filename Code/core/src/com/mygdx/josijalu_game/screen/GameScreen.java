@@ -3,8 +3,10 @@ package com.mygdx.josijalu_game.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.josijalu_game.JosijaluGameClass;
+import com.mygdx.josijalu_game.SoundManager;
 import com.mygdx.josijalu_game.TextureManager;
 import com.mygdx.josijalu_game.camera.OrthoCamera;
 import com.mygdx.josijalu_game.entity.EntityManager;
@@ -29,6 +31,10 @@ public class GameScreen implements Screen {
     float totalTime = 60; //starting at 30 seconds
 
     public GameScreen(final JosijaluGameClass game, final byte gameMode) {
+
+        SoundManager.gameStart.play();
+        SoundManager.ambientNoise.play();
+
         this.gameMode = gameMode;
 
         this.game = game;

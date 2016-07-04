@@ -1,5 +1,6 @@
 package com.mygdx.josijalu_game.screen;
 
+import com.mygdx.josijalu_game.SoundManager;
 import shadering.Shadering;
 
 import com.badlogic.gdx.Gdx;
@@ -31,6 +32,10 @@ public class MainMenuScreen implements Screen {
     private BitmapFont font;
 
     public MainMenuScreen(final JosijaluGameClass game) {
+        if (SoundManager.ambientNoise.isPlaying() == true){
+            SoundManager.ambientNoise.stop();
+            SoundManager.ambientNoise.dispose();
+        }
         this.game = game;
         camera = new OrthoCamera();
         stage = new Stage(new ScalingViewport(Scaling.stretch, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), new OrthographicCamera()),
