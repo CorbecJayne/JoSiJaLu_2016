@@ -55,20 +55,22 @@ public class EntityManager {
         for (Player p : getPlayers()) {
             for (Missile m : getMissiles()) {
                 if (p.getBounds().overlaps(m.getBounds())) {
-                    SoundManager.hit.play();
                     if (gameMode == 1 && !p.playerTwo) {
+                        SoundManager.hit.play();
                         entities.removeValue(m, false);
                         p.health -= Missile.DAMAGE;
                         if (p.health <= 0) {
                             game.setScreen(new GameOverScreen(false, game));
                         }
                     } else if (p.playerTwo && !m.playerTwo) {
+                        SoundManager.hit.play();
                         entities.removeValue(m, false);
                         p.health -= Missile.DAMAGE;
                         if (p.health <= 0) {
                             game.setScreen(new GameOverScreen(true, game));
                         }
                     } else if (!p.playerTwo && m.playerTwo) {
+                        SoundManager.hit.play();
                         entities.removeValue(m, false);
                         p.health -= Missile.DAMAGE;
                         if (p.health <= 0) {
