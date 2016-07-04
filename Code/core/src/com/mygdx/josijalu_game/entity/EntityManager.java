@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.josijalu_game.JosijaluGameClass;
+import com.mygdx.josijalu_game.SoundManager;
 import com.mygdx.josijalu_game.camera.OrthoCamera;
 import com.mygdx.josijalu_game.screen.GameOverScreen;
 
@@ -54,6 +55,7 @@ public class EntityManager {
         for (Player p : getPlayers()) {
             for (Missile m : getMissiles()) {
                 if (p.getBounds().overlaps(m.getBounds())) {
+                    SoundManager.hit.play();
                     if (gameMode == 1 && !p.playerTwo) {
                         entities.removeValue(m, false);
                         p.health -= Missile.DAMAGE;

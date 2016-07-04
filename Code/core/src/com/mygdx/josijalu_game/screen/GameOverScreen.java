@@ -20,10 +20,9 @@ public class GameOverScreen implements Screen {
     private Texture texture;
 
     public GameOverScreen(boolean playerTwoWon, JosijaluGameClass game) {
-        if (SoundManager.ambientNoise.isPlaying() == true){
-            SoundManager.ambientNoise.stop();
-            SoundManager.ambientNoise.dispose();
-        }
+        SoundManager.gameOver.play(0.01f); //Macht aus irgendeinem Grund keinen Unterschied;
+        SoundManager.gameOver.play();
+      if(playerTwoWon==true){SoundManager.pigLaugh.play();}
         this.game = game;
         camera = new OrthoCamera();
         camera.resize();

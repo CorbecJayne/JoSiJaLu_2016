@@ -125,7 +125,7 @@ public class MainMenuScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
-        game.font.draw(game.batch, "Welcome to TurfWars", JosijaluGameClass.WIDTH / 2 - 350, JosijaluGameClass.HEIGHT / 2 + 300);
+        game.font.draw(game.batch, "The Epic Battle of Little Big River", JosijaluGameClass.WIDTH / 2 - 500, JosijaluGameClass.HEIGHT / 2 + 300);
         game.batch.end();
 
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
