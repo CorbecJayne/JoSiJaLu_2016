@@ -43,7 +43,7 @@ public abstract class Entity {
     }
 
     public Circle getBounds() {
-        return new Circle(position.x + size/2, position.y + size/2, size/2);
+        return new Circle(position.x + size/2, position.y + size/2, size/4);
 
     }
 

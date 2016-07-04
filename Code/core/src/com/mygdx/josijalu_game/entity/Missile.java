@@ -25,10 +25,10 @@ public class Missile extends Entity {
         size = getSize();
     }
 
-    @Override
-    public Circle getBounds() {
-        return new Circle(new Vector2(position.x + 16, position.y + 16), 14);
-    }
+//    @Override
+//    public Circle getBounds() {
+//        return new Circle(new Vector2(position.x + 16, position.y + 16), 14);
+//    }
 
     @Override
     public void update() {

@@ -47,14 +47,14 @@ public class Player extends Entity {
         health = 900;
     }
 
-    @Override
-    public Circle getBounds() {
-        if (playerTwo)
-            return new Circle(new Vector2(position.x + 63, position.y + 63), 50);
-        else
-            return new Circle(new Vector2(position.x + 68, position.y + 65), 50);
-
-    }
+//    @Override
+//    public Circle getBounds() {
+//        if (playerTwo)
+//            return new Circle(new Vector2(position.x + 63, position.y + 63), 50);
+//        else
+//            return new Circle(new Vector2(position.x + 68, position.y + 65), 50);
+//
+//    }
 
     private Vector2 getShotVector() {
         Vector2 v = entityManager.getMousePos();
