@@ -29,7 +29,7 @@ public class Player extends Entity {
     private float speedCurrent = 2;
 
     public static int getSize() {
-        return 128;
+        return 200;
     }
 
     public Player(Vector2 position, Vector2 direction, EntityManager entityManager, boolean playerTwo, byte gameMode) {

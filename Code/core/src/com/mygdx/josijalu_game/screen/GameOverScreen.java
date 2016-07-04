@@ -22,7 +22,9 @@ public class GameOverScreen implements Screen {
     public GameOverScreen(boolean playerTwoWon, JosijaluGameClass game) {
         SoundManager.gameOver.play(0.01f); //Macht aus irgendeinem Grund keinen Unterschied;
         SoundManager.gameOver.play();
-      if(playerTwoWon==true){SoundManager.pigLaugh.play();}
+        if (playerTwoWon)
+            SoundManager.pigLaugh.play();
+
         this.game = game;
         camera = new OrthoCamera();
         camera.resize();
@@ -45,7 +47,7 @@ public class GameOverScreen implements Screen {
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
-        game.batch.draw(texture, JosijaluGameClass.WIDTH / 2 + 150, JosijaluGameClass.HEIGHT / 2);
+        game.batch.draw(texture, JosijaluGameClass.WIDTH / 2, JosijaluGameClass.HEIGHT / 2 - 50, 200, 200);
         game.font.draw(game.batch, "Winner is:", JosijaluGameClass.WIDTH / 2 + 10, JosijaluGameClass.HEIGHT / 2 + 90, 0, 0, false);
         game.batch.end();
 
