@@ -74,18 +74,18 @@ public class Player extends Entity {
             Vector2 v = new Vector2(0, 0);
 
             if (playerTwo) {
-                if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && position.x >= JosijaluGameClass.WIDTH / 2)
+                if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && position.x >= JosijaluGameClass.WIDTH / 2 + 50)
                     --v.x;
-                if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && position.x <= JosijaluGameClass.WIDTH - size)
+                if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && position.x <= JosijaluGameClass.WIDTH - size - 100)
                     ++v.x;
                 if (Gdx.input.isKeyPressed(Input.Keys.UP) && position.y <= JosijaluGameClass.HEIGHT - size)
                     ++v.y;
                 if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && position.y >= 0)
                     --v.y;
             } else {
-                if (Gdx.input.isKeyPressed(Input.Keys.A) && position.x >= 0)
+                if (Gdx.input.isKeyPressed(Input.Keys.A) && position.x >= 0 + 100)
                     --v.x;
-                if (Gdx.input.isKeyPressed(Input.Keys.D) && position.x <= JosijaluGameClass.WIDTH / 2 - size)
+                if (Gdx.input.isKeyPressed(Input.Keys.D) && position.x <= JosijaluGameClass.WIDTH / 2 - size - 50)
                     ++v.x;
                 if (Gdx.input.isKeyPressed(Input.Keys.W) && position.y <= JosijaluGameClass.HEIGHT - size)
                     ++v.y;
