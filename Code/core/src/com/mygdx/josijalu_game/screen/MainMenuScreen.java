@@ -83,9 +83,9 @@ public class MainMenuScreen implements Screen {
         stage.addActor(tbAsteroids);
         tbAsteroids.addListener(new ChangeListener() {
             public void changed(ChangeEvent event, Actor actor) {
-                tbStandard.setText("Loading...");
-                dispose();
-                game.setScreen(new GameScreen(game, (byte) 2));
+                tbAsteroids.setText("Coming soon...");
+               // dispose();
+               // game.setScreen(new GameScreen(game, (byte) 2));
             }
         });
         //button Host:
