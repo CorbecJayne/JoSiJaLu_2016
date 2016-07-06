@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.josijalu_game.JosijaluGameClass;
 import com.mygdx.josijalu_game.TextureManager;
+import com.mygdx.josijalu_game.screen.GameScreen;
 
 /**
  * Created by User on 26.06.2016.
@@ -74,22 +75,22 @@ public class Player extends Entity {
             Vector2 v = new Vector2(0, 0);
 
             if (playerTwo) {
-                if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && position.x >= JosijaluGameClass.WIDTH / 2 + 50)
+                if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && position.x + (0.25 * size) >= (JosijaluGameClass.WIDTH + GameScreen.getRiverWidth())/ 2)
                     --v.x;
-                if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && position.x <= JosijaluGameClass.WIDTH - size - 100)
+                if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && position.x - (0.25 * size) <= JosijaluGameClass.WIDTH - GameScreen.getxBoundaries() - size)
                     ++v.x;
-                if (Gdx.input.isKeyPressed(Input.Keys.UP) && position.y <= JosijaluGameClass.HEIGHT - size)
+                if (Gdx.input.isKeyPressed(Input.Keys.UP) && position.y - (0.25 * size) <= JosijaluGameClass.HEIGHT - size - GameScreen.getyBoundaries())
                     ++v.y;
-                if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && position.y >= 0)
+                if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && position.y + (0.25 * size) >= GameScreen.getyBoundaries())
                     --v.y;
             } else {
-                if (Gdx.input.isKeyPressed(Input.Keys.A) && position.x >= 0 + 100)
+                if (Gdx.input.isKeyPressed(Input.Keys.A) && position.x + (0.25 * size)>= 0 + GameScreen.getxBoundaries())
                     --v.x;
-                if (Gdx.input.isKeyPressed(Input.Keys.D) && position.x <= JosijaluGameClass.WIDTH / 2 - size - 50)
+                if (Gdx.input.isKeyPressed(Input.Keys.D) && position.x - (0.25 * size)<= (JosijaluGameClass.WIDTH - GameScreen.getRiverWidth()) / 2 - size)
                     ++v.x;
-                if (Gdx.input.isKeyPressed(Input.Keys.W) && position.y <= JosijaluGameClass.HEIGHT - size)
+                if (Gdx.input.isKeyPressed(Input.Keys.W) && position.y - (0.25 * size)<= JosijaluGameClass.HEIGHT - size - GameScreen.getyBoundaries())
                     ++v.y;
-                if (Gdx.input.isKeyPressed(Input.Keys.S) && position.y >= 0)
+                if (Gdx.input.isKeyPressed(Input.Keys.S) && position.y + (0.25 * size)>= GameScreen.getyBoundaries())
                     --v.y;
             }
             v.setLength(speedCurrent * speedMod);

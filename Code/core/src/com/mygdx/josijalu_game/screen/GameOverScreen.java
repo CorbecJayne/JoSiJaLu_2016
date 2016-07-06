@@ -22,9 +22,9 @@ public class GameOverScreen implements Screen {
     public GameOverScreen(boolean playerTwoWon, JosijaluGameClass game) {
         SoundManager.gameOver.play(0.01f); //Macht aus irgendeinem Grund keinen Unterschied;
         SoundManager.gameOver.play();
-        if (playerTwoWon)
+        if (playerTwoWon) {
             SoundManager.pigLaugh.play();
-
+        }else {SoundManager.birdLaugh.play();}
         this.game = game;
         camera = new OrthoCamera();
         camera.resize();

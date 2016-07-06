@@ -12,6 +12,7 @@ import com.mygdx.josijalu_game.camera.OrthoCamera;
 import com.mygdx.josijalu_game.entity.EntityManager;
 import com.mygdx.josijalu_game.entity.Player;
 import com.mygdx.josijalu_game.entity.Reticle;
+import com.mygdx.josijalu_game.entity.Tortoise;
 import com.mygdx.josijalu_game.entity.hud.HUD;
 import com.mygdx.josijalu_game.entity.hud.HealthBar;
 
@@ -29,6 +30,28 @@ public class GameScreen implements Screen {
     private final byte gameMode; //0: Standard; 1: Defence; 2: Asteroids
 
     float totalTime = 60; //starting at 30 seconds
+    static float playTime = 0; //time played
+
+    public static float getPlayTime() {
+        return playTime;
+    }
+
+    private static int xBoundaries = 150;
+    private static int yBoundaries = 50;
+    private static int riverWidth = 200;
+
+    public static int getxBoundaries() {
+        return xBoundaries;
+    }
+
+    public static int getyBoundaries() {
+        return yBoundaries;
+    }
+
+    public static int getRiverWidth() {
+        return riverWidth;
+    }
+
 
     public GameScreen(final JosijaluGameClass game, final byte gameMode) {
 
@@ -45,8 +68,9 @@ public class GameScreen implements Screen {
         if (gameMode == 1)
             entityManager.addEntity(new Reticle(entityManager));
 
-        entityManager.addEntity(new Player(new Vector2(0, (JosijaluGameClass.HEIGHT - TextureManager.PLAYER_LEFT.getHeight()) / 2), new Vector2(0, 0), entityManager, false, gameMode));
-        entityManager.addEntity(new Player(new Vector2(JosijaluGameClass.WIDTH - TextureManager.PLAYER_RIGHT.getWidth(), (JosijaluGameClass.HEIGHT - TextureManager.PLAYER_RIGHT.getHeight()) / 2), new Vector2(0, 0), entityManager, true, gameMode));
+        entityManager.addEntity(new Player(new Vector2(0, (JosijaluGameClass.HEIGHT - 200) / 2), new Vector2(0, 0), entityManager, false, gameMode));
+        entityManager.addEntity(new Player(new Vector2((JosijaluGameClass.WIDTH + GameScreen.getRiverWidth()) / 2 - 50, (JosijaluGameClass.HEIGHT - 200) / 2), new Vector2(0, 0), entityManager, true, gameMode));
+        entityManager.addEntity(new Tortoise(new Vector2(JosijaluGameClass.WIDTH  / 2- 100, JosijaluGameClass.HEIGHT + 200), new Vector2(0, 0)));
 
         hud = new HUD();
 
@@ -69,6 +93,7 @@ public class GameScreen implements Screen {
         }
 
         float deltaTime = Gdx.graphics.getDeltaTime();
+        playTime += deltaTime; //time gets larger
         totalTime -= deltaTime; //if counting down
         int seconds = ((int) totalTime);
         if (seconds <= 0 && gameMode == 1) {

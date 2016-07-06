@@ -15,6 +15,7 @@ public class SoundManager {
     public static Sound gameStart = Gdx.audio.newSound(Gdx.files.internal("assets/sound/game_start_2.wav"));
     public static Sound hit = Gdx.audio.newSound(Gdx.files.internal("assets/sound/fire_hit.wav"));
     public static Sound pigLaugh = Gdx.audio.newSound(Gdx.files.internal("assets/sound/pig_laugh.mp3"));
+    public static Sound birdLaugh = Gdx.audio.newSound(Gdx.files.internal("assets/sound/bird_laugh.ogg"));
 
     public static Music ambientNoise = Gdx.audio.newMusic(Gdx.files.internal("assets/sound/ambient_noise.wav"));
 

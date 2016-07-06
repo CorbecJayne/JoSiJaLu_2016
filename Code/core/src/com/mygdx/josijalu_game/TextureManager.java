@@ -16,6 +16,8 @@ public class TextureManager {
     public static Texture MISSILE_LEFT = new Texture(Gdx.files.internal("assets/graphics/missile.png")); // pig's missile
     public static Texture MISSILE_RIGHT = new Texture(Gdx.files.internal("assets/graphics/missile.png")); // bird's missile
 
+    public static Texture TORTOISE = new Texture(Gdx.files.internal("assets/graphics/tortoise.png")); // tortoise's picture
+
     public static Texture PLAYER_LEFT_WON = new Texture(Gdx.files.internal("assets/graphics/pig.png")); //pig won
     public static Texture PLAYER_RIGHT_WON = new Texture(Gdx.files.internal("assets/graphics/bird.png")); //bird won
 
