@@ -69,8 +69,8 @@ public class GameScreen implements Screen {
         if (gameMode == 1)
             entityManager.addEntity(new Reticle(entityManager));
 
-        entityManager.addEntity(new Player(new Vector2(300, (JosijaluGameClass.HEIGHT - 200) / 2), new Vector2(0, 0), entityManager, false, gameMode));
-        entityManager.addEntity(new Player(new Vector2((JosijaluGameClass.WIDTH + GameScreen.getRiverWidth()) / 2 - 50, (JosijaluGameClass.HEIGHT - 200) / 2), new Vector2(0, 0), entityManager, true, gameMode));
+        entityManager.addEntity(new Player(new Vector2(50, (JosijaluGameClass.HEIGHT - 200) / 2), new Vector2(20, -450), entityManager, false, gameMode));
+        entityManager.addEntity(new Player(new Vector2((JosijaluGameClass.WIDTH + GameScreen.getRiverWidth()) / 2 + 550, (JosijaluGameClass.HEIGHT - 200) / 2), new Vector2(0, 450), entityManager, true, gameMode));
         entityManager.addEntity(new Tortoise(new Vector2(JosijaluGameClass.WIDTH  / 2- 100, JosijaluGameClass.HEIGHT + 200), new Vector2(0, 0)));
         entityManager.addEntity(new PowerUp(new Vector2(0,0), new Vector2(0,0)));
 
