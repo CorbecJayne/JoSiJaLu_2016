@@ -52,8 +52,8 @@ public class EntityManager {
     }
 
     private void checkCollisions() {
-        for (Player p : getPlayers()) {
-            for (Missile m : getMissiles()) {
+        for (Missile m : getMissiles()) {
+            for (Player p : getPlayers()) {
                 if (p.getBounds().overlaps(m.getBounds())) {
                     if (gameMode == 1 && !p.playerTwo) {
                         SoundManager.hit.play();
@@ -80,7 +80,11 @@ public class EntityManager {
                 }
 
             }
+            if (getPowerUp().getBounds().overlaps(m.getBounds()) && getPowerUp() != null) {
+                entities.removeValue(m, false);
+            }
         }
+
     }
 
     public void addEntity(Entity entity) {
@@ -103,4 +107,10 @@ public class EntityManager {
         return ret;
     }
 
+    public PowerUp getPowerUp() {
+        for (Entity e : entities)
+            if (e instanceof PowerUp)
+                return (PowerUp) e;
+        return null;
+    }
 }

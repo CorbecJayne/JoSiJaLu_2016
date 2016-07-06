@@ -10,13 +10,20 @@ public class PowerUp extends Entity{
     private static int getSize(){
         return 50;
     }
-    public PowerUp(Vector2 position, Vector2 direction) {
-        super(TextureManager.POWUP, position, direction);
+    public PowerUp(Vector2 position, Vector2 velocity) {
+        super(TextureManager.POWUP, position, velocity);
         size = getSize();
+        this.velocity = velocity;
+    }
+
+    public void whenHit(boolean PlayerTwo){
+        if(PlayerTwo){
+            System.out.print("Birdy McBirdface has activated a PowerUp");
+        }else System.out.print("Piggy McPigface has activated a PowerUp");
     }
 
     @Override
     public void update() {
-        position = Tortoise.getStaticPosition();
+        position.add(velocity);
     }
 }
