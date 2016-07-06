@@ -59,30 +59,31 @@ public class EntityManager {
                         SoundManager.hit.play();
                         entities.removeValue(m, false);
                         p.health -= Missile.DAMAGE;
-                        if (p.health <= 0) {
+                        if (p.health <= 0)
                             game.setScreen(new GameOverScreen(false, game));
-                        }
                     } else if (p.playerTwo && !m.playerTwo) {
                         SoundManager.hit.play();
                         entities.removeValue(m, false);
                         p.health -= Missile.DAMAGE;
-                        if (p.health <= 0) {
+                        if (p.health <= 0)
                             game.setScreen(new GameOverScreen(true, game));
-                        }
                     } else if (!p.playerTwo && m.playerTwo) {
                         SoundManager.hit.play();
                         entities.removeValue(m, false);
                         p.health -= Missile.DAMAGE;
-                        if (p.health <= 0) {
+                        if (p.health <= 0)
                             game.setScreen(new GameOverScreen(false, game));
-                        }
                     }
                 }
 
             }
-            if (getPowerUp().getBounds().overlaps(m.getBounds()) && getPowerUp() != null) {
-                entities.removeValue(m, false);
-            }
+            PowerUp pow = getPowerUp();
+            if (pow != null)
+                if (pow.getBounds().overlaps(m.getBounds())) {
+                    pow.whenHit(m.playerTwo);
+                    entities.removeValue(pow, false);
+                    entities.removeValue(m, false);
+                }
         }
 
     }
@@ -107,7 +108,7 @@ public class EntityManager {
         return ret;
     }
 
-    public PowerUp getPowerUp() {
+    private PowerUp getPowerUp() {
         for (Entity e : entities)
             if (e instanceof PowerUp)
                 return (PowerUp) e;

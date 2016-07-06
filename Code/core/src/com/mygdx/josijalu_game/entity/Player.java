@@ -22,8 +22,8 @@ public class Player extends Entity {
     private final EntityManager entityManager;
 
     private int shotSpeed = 20;
-    private final int shotDelay = 200; // Delay between shots in milliseconds
     private float fireRate = 1; // 1=normal; lower fireRate -> higher shotDelay; higher fireRate -> lower shotDelay
+    private final int shotDelay = 200; // Delay between shots in milliseconds
     private long lastFire;
 
     private static final int speedMod = 300;

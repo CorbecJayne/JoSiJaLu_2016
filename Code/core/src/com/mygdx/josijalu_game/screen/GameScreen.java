@@ -53,6 +53,9 @@ public class GameScreen implements Screen {
         return riverWidth;
     }
 
+    private final int tortDelay = 3000; // Delay between tortoises in milliseconds
+    private long lastTort;
+
 
     public GameScreen(final JosijaluGameClass game, final byte gameMode) {
 
@@ -69,9 +72,9 @@ public class GameScreen implements Screen {
         if (gameMode == 1)
             entityManager.addEntity(new Reticle(entityManager));
 
-        entityManager.addEntity(new Player(new Vector2(50, (JosijaluGameClass.HEIGHT - 200) / 2), new Vector2(20, -450), entityManager, false, gameMode));
-        entityManager.addEntity(new Player(new Vector2((JosijaluGameClass.WIDTH + GameScreen.getRiverWidth()) / 2 + 550, (JosijaluGameClass.HEIGHT - 200) / 2), new Vector2(0, 450), entityManager, true, gameMode));
-        entityManager.addEntity(new Tortoise(new Vector2(JosijaluGameClass.WIDTH  / 2- 100, JosijaluGameClass.HEIGHT + 200), new Vector2(0, 0), entityManager));
+        entityManager.addEntity(new Player(new Vector2(Player.getSize() / 4, (JosijaluGameClass.HEIGHT - Player.getSize()) / 2), new Vector2(0, 0), entityManager, false, gameMode));
+        entityManager.addEntity(new Player(new Vector2(JosijaluGameClass.WIDTH - riverWidth - Player.getSize(), (JosijaluGameClass.HEIGHT - Player.getSize()) / 2), new Vector2(0, 0), entityManager, true, gameMode));
+
 
         hud = new HUD();
 
@@ -112,6 +115,12 @@ public class GameScreen implements Screen {
         entityManager.render(game.batch);
         hud.render(game.batch);
         game.batch.end();
+
+        if (System.currentTimeMillis() - lastTort >= tortDelay) {
+            entityManager.addEntity(new Tortoise(new Vector2((JosijaluGameClass.WIDTH - Tortoise.getSize()) / 2, JosijaluGameClass.HEIGHT), new Vector2(0, -5), entityManager));
+            lastTort = System.currentTimeMillis();
+        }
+
     }
 
     @Override
