@@ -10,24 +10,30 @@ import com.mygdx.josijalu_game.screen.GameScreen;
  */
 public class Tortoise extends Entity{
 
+    static Vector2 staticPosition;
+    int tortoiseTime = 5;
+    Vector2 v = new Vector2(0,0);
     private static int getSize(){
         return 200;
     }
     public Tortoise(Vector2 position, Vector2 direction){
         super(TextureManager.TORTOISE, position, direction);
         size = getSize();
+        staticPosition = position;
     }
     @Override
     public void update() {
-        int neededTime = 15;
-        Vector2 v = new Vector2(0, 0);
-        if(GameScreen.getPlayTime()>=neededTime){
+        if(GameScreen.getPlayTime()>=tortoiseTime){
             v = new Vector2(0, -5);
-            neededTime += 15;
+            tortoiseTime += 20;
         }
         position.add(v);
         if(position.y <= -200){
             position= new Vector2(position.x, JosijaluGameClass.HEIGHT);
+            v = new Vector2(0, 0);
         }
+    }
+    public static Vector2 getStaticPosition(){
+        return staticPosition;
     }
 }

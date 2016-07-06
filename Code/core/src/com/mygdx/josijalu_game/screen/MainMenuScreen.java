@@ -36,6 +36,7 @@ public class MainMenuScreen implements Screen {
             SoundManager.ambientNoise.stop();
             SoundManager.ambientNoise.dispose();
         }
+        GameScreen.setPlayTime(0);
         this.game = game;
         camera = new OrthoCamera();
         stage = new Stage(new ScalingViewport(Scaling.stretch, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), new OrthographicCamera()),
